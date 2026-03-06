@@ -3,6 +3,13 @@
 # Display an introduction to the game explaining rules and prompt for their name and display that in the welcome message. 
 # Return the name to the main program and store it in variable so it can be used throughout the program
 
+# Display list of all teams and allow the user to choose a team using a menu.
+# Call the function again to let the user choose the opponent but do not display 
+# the team they chose previously. Remove that team from the list. Allow the user to select an opponent, 
+# and return team name. This function should receive a parameter but give it a default value if none is passed.
+# You can use this function for both choosing the home team and the opponent team.
+
+
 def sWelcome():
     print("Welcome to the Soccer Game Simulator!")
     print("Rules: ")
@@ -19,12 +26,6 @@ def sWelcome():
 sName = sWelcome()
 print(f"Welcome {sName}! Let's play!")
 
-
-# Display list of all teams and allow the user to choose a team using a menu.
-# Call the function again to let the user choose the opponent but do not display 
-# the team they chose previously. Remove that team from the list. Allow the user to select an opponent, 
-# and return team name. This function should receive a parameter but give it a default value if none is passed.
-# You can use this function for both choosing the home team and the opponent team.
 
 lstTeams = ["Cougars", "Utes", "Aggies", "Wildcats", "Bulldogs", "Falcons", "Eagles", "Wolves", "Lions", "Bears"]
 
