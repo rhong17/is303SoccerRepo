@@ -98,7 +98,7 @@ def display_record(sHomeTeam, iHomeWins, iAwayWins, lstWonAgainst, lstLostAgains
 
 # THE MAIN PROGRAM: 
 # Riley Hong, Ben Pratt, Sadie Barton
-introduction()
+sPlayerName = introduction()
 lstOpp = []
 bRunning = True
 while bRunning == True :
@@ -124,9 +124,9 @@ while bRunning == True :
         lstLostAgainst = [] 
         
         for team in lstOpp :
-            play_game(sOpponent, sHomeTeam)
+            sResult = play_game(sHomeTeam, team)
 
-            if play_game(sOpponent, sHomeTeam) == "W" :
+            if sResult == "W" :
                 iHomeWins = iHomeWins + 1
                 lstWonAgainst.append(team)
             else :
