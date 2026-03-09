@@ -1,12 +1,32 @@
 # Riley Hong, Sadie Barton, and Ben Pratt
 # P2 soccer program functions
 
-# Display of menu and return choice. 
-# Store in variable and use this value to determine which function to call next.
 
 import random
 
+# 1. Display an introduction to the game 
+# Ben Pratt
+
+def introduction(): 
+    while True :
+        print(f'-' * 40)
+        print(f'    Welcome to the BYU Soccer Simulation!')
+        print(f'-' * 40)
+        print('\nGAME RULES: ')
+        print('' \
+        '\n- Select your home team' \
+        '- Your team will randomly face opponents' \
+        '- Scores are randomly generated' \
+        '- Win 75 percent of games -> NCAA Tournament!' \
+        '- Below 50 percent -> Back to practice! ')
+
+        sPlayerName = input("\nWhat is your name?: ")
+        print(f"Welcome, {sPlayerName}! Let's play!")
+        return sPlayerName
+
+
 # 2. Display of menu and return choice. Store in variable and use this value to determine which function to call next.
+# Riley Hong
 def show_menu() : 
     while True :
         print("\n1 - Game Rules")
@@ -22,6 +42,7 @@ def show_menu() :
             
 
 # 3. Display list of all teams and allow the user to choose a team using a menu.
+# Sadie Barton
 lstTeams = ["Cougars", "Utes", "Aggies", "Wildcats", "Bulldogs", "Falcons", "Eagles", "Wolves", "Lions", "Bears"]
 
 def list_teams(lstTeams=[], sPrompt= "Make your selection: "):
@@ -36,6 +57,7 @@ def list_teams(lstTeams=[], sPrompt= "Make your selection: "):
 
 
 # 4. Play the game receiving both team names. Generate random scores without ties. Return W or L.
+# Riley Hong
 def play_game(sHomeTeam, sAwayTeam) :
     iRandScoreHome = random.randrange(0, 4)
     iRandScoreAway = random.randrange(0, 4)
@@ -53,6 +75,7 @@ def play_game(sHomeTeam, sAwayTeam) :
 
 
 # 5. Display the final record for a team. Receive the home team data and display information.
+# Riley Hong
 def display_record(sHomeTeam, iHomeWins, iAwayWins, lstWonAgainst, lstLostAgainst) :
     print("\nTeams won against: ")
     for team in lstWonAgainst :
@@ -74,18 +97,24 @@ def display_record(sHomeTeam, iHomeWins, iAwayWins, lstWonAgainst, lstLostAgains
 
 
 # THE MAIN PROGRAM: 
+# Riley Hong, Ben Pratt, Sadie Barton
+introduction()
+lstOpp = []
 bRunning = True
 while bRunning == True :
     iChoice = show_menu()
     if iChoice == 1 :
-        print("Game Rules")
-
+        introduction()
     elif iChoice == 2 :
-        sHomeTeam = list_teams(lstTeams, "\nPick your home team (1-3): ")
+        sHomeTeam = list_teams(lstTeams, "\nPick your home team (enter number 1-10): ")
         lstTeams.remove(sHomeTeam)
-        sOpponent = list_teams(lstTeams, "\nPick your opposing team (1-2): ")
+        iGames = int(input(f"Enter the number of games that {sHomeTeam} will play this season (enter number between 1-9): "))
+        for iGames in range(0, iGames) :
+            sOpponent = list_teams(lstTeams, "\nPick your opposing team (enter number): ")
+            lstTeams.remove(sOpponent)
+            lstOpp.append(sOpponent)
         print(f"\nHome team: {sHomeTeam}")
-        print(f"Opponent: {sOpponent}")
+        print(f"Opponents: {', '.join(lstOpp)}")
 
         iHomeWins = 0
         iAwayWins = 0
@@ -93,17 +122,19 @@ while bRunning == True :
         # THE LISTS:
         lstWonAgainst = []
         lstLostAgainst = [] 
-            
-        play_game(sOpponent, sHomeTeam)
+        
+        for team in lstOpp :
+            play_game(sOpponent, sHomeTeam)
 
-        if play_game(sOpponent, sHomeTeam) == "W" :
-            iHomeWins = iHomeWins + 1
-            lstWonAgainst.append(sOpponent)
-        else :
-            iAwayWins = iAwayWins + 1
-            lstLostAgainst.append(sOpponent)
+            if play_game(sOpponent, sHomeTeam) == "W" :
+                iHomeWins = iHomeWins + 1
+                lstWonAgainst.append(team)
+            else :
+                iAwayWins = iAwayWins + 1
+                lstLostAgainst.append(team)
 
         display_record(sHomeTeam, iHomeWins, iAwayWins, lstWonAgainst, lstLostAgainst)
+        bRunning = False
         
 
     else :
